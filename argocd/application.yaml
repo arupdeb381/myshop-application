@@ -1,0 +1,24 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myshop-app
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/arupdeb381/myshop-application.git
+    targetRevision: main
+    path: kubernetets
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: myshop
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

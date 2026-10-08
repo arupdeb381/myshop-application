@@ -68,41 +68,6 @@ pipeline {
                 }
             }
         }
-
-
-stage('Deploy to K3s') {
-    steps {
-        sh '''
-            export KUBECONFIG=/var/lib/jenkins/.kube/config
-
-            echo "Deploying application to K3s..."
-
-            kubectl apply -f kubernetets/deployment.yaml
-            kubectl apply -f kubernetets/service.yaml
-
-            kubectl -n myshop set image \
-              deployment/myshop-app \
-              myshop=arupdeb381/myshop-app:1.0.0
-        '''
-    }
-}
-
-stage('Verify Deployment') {
-    steps {
-        sh '''
-            export KUBECONFIG=/var/lib/jenkins/.kube/config
-
-            kubectl -n myshop rollout status \
-              deployment/myshop-app \
-              --timeout=180s
-
-            kubectl -n myshop get deployments
-            kubectl -n myshop get pods -o wide
-            kubectl -n myshop get services
-        '''
-    }
-}
-
     }
 
     post {

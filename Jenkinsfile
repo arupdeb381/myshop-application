@@ -69,53 +69,40 @@ pipeline {
             }
         }
 
-        stage('Deploy to K3s') {
-            steps {
-                withCredentials([
-                    file(
-                        credentialsId: 'k3s-kubeconfig',
-                        variable: 'KUBE_CONFIG_FILE'
-                    )
-                ]) {
-                    sh '''
-                        export KUBECONFIG="$KUBE_CONFIG_FILE"
 
-                        kubectl apply \
-                          -f kubernetes/deployment.yaml
+stage('Deploy to K3s') {
+    steps {
+        sh '''
+            export KUBECONFIG=/var/lib/jenkins/.kube/config
 
-                        kubectl apply \
-                          -f kubernetes/service.yaml
+            echo "Deploying application to K3s..."
 
-                        kubectl -n ${NAMESPACE} set image \
-                          deployment/${DEPLOYMENT} \
-                          myshop=${DOCKERHUB_USER}/${IMAGE_NAME}:${IMAGE_TAG}
-                    '''
-                }
-            }
-        }
+            kubectl apply -f kubernetets/deployment.yaml
+            kubectl apply -f kubernetets/service.yaml
 
-        stage('Verify Deployment') {
-            steps {
-                withCredentials([
-                    file(
-                        credentialsId: 'k3s-kubeconfig',
-                        variable: 'KUBE_CONFIG_FILE'
-                    )
-                ]) {
-                    sh '''
-                        export KUBECONFIG="$KUBE_CONFIG_FILE"
+            kubectl -n myshop set image \
+              deployment/myshop-app \
+              myshop=arupdeb381/myshop-app:1.0.0
+        '''
+    }
+}
 
-                        kubectl -n ${NAMESPACE} rollout status \
-                          deployment/${DEPLOYMENT} \
-                          --timeout=180s
+stage('Verify Deployment') {
+    steps {
+        sh '''
+            export KUBECONFIG=/var/lib/jenkins/.kube/config
 
-                        kubectl -n ${NAMESPACE} get deployments
-                        kubectl -n ${NAMESPACE} get pods -o wide
-                        kubectl -n ${NAMESPACE} get services
-                    '''
-                }
-            }
-        }
+            kubectl -n myshop rollout status \
+              deployment/myshop-app \
+              --timeout=180s
+
+            kubectl -n myshop get deployments
+            kubectl -n myshop get pods -o wide
+            kubectl -n myshop get services
+        '''
+    }
+}
+
     }
 
     post {

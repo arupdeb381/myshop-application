@@ -37,7 +37,7 @@ pipeline {
             steps {
                 sh '''
                     docker build \
-                      -f docker/Dockerfile \
+                      -f Docker/Dockerfile \
                       -t ${DOCKERHUB_USER}/${IMAGE_NAME}:${IMAGE_TAG} \
                       .
                 '''

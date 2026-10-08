@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1220" />
+  <title>DevOps Demo App | v1.0.0</title>
+  <style>
+    :root { color-scheme: dark; font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: radial-gradient(circle at 15% 15%, #183766, transparent 45%), #0b1220; color: #eef4ff; padding: 24px; }
+    main { width: min(100%, 680px); padding: clamp(28px, 6vw, 52px); border: 1px solid #31415d; border-radius: 24px; background: #111d30; box-shadow: 0 22px 70px #0006; }
+    .eyebrow { color: #8db8ff; font-size: 13px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+    h1 { margin: 16px 0 10px; font-size: clamp(32px, 6vw, 48px); letter-spacing: -.04em; }
+    p { color: #b4c2d9; line-height: 1.7; }
+    .version { display: inline-block; margin: 14px 0 24px; padding: 9px 16px; background: #203b62; color: #a9d0ff; border-radius: 999px; font-weight: 700; }
+    .details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .tile { padding: 20px; border: 1px solid #30425e; border-radius: 14px; background: #17263d; }
+    .label { display: block; color: #91a6c6; font-size: 12px; margin-bottom: 10px; }
+    .value { font-weight: 700; }
+    .status { color: #6ee7b7; }
+    footer { margin-top: 30px; color: #8496b2; font-size: 13px; }
+    @media (max-width: 440px) { .details { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">DevOps Deployment Lab</div>
+    <h1>Application is Running</h1>
+    <p>Welcome to the sample application for practicing GitHub, Jenkins, Docker, and Kubernetes deployments.</p>
+    <div class="version">Release v1.0.0</div>
+    <section class="details" aria-label="Application details">
+      <div class="tile"><span class="label">Application</span><span class="value">DevOps Demo App</span></div>
+      <div class="tile"><span class="label">Version</span><span class="value">1.0.0</span></div>
+      <div class="tile"><span class="label">Page Status</span><span class="value status">● Loaded successfully</span></div>
+      <div class="tile"><span class="label">Deployment Target</span><span class="value">Kubernetes</span></div>
+    </section>
+    <footer>Built for CI/CD practice • Release 1.0.0</footer>
+  </main>
+</body>
+</html>

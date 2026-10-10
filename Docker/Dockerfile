@@ -2,7 +2,7 @@
 FROM nginx:stable-alpine
 
 LABEL app="devops-demo"
-LABEL version="1.0.1"
+LABEL version="1.0.2"
 
 COPY src/index.html /usr/share/nginx/html/index.html
 

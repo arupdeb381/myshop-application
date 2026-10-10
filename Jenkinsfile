@@ -5,7 +5,7 @@ pipeline {
     environment {
         DOCKERHUB_USER = 'arupdeb381'
         IMAGE_NAME = 'myshop-app'
-        IMAGE_TAG = '1.0.1'
+        IMAGE_TAG = '1.0.2'
         NAMESPACE = 'myshop'
         DEPLOYMENT = 'myshop-app'
     }

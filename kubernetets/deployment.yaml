@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: myshop
-          image: arupdeb381/myshop-app:1.0.1
+          image: arupdeb381/myshop-app:1.0.2
           ports:
             - containerPort: 80
           readinessProbe:
